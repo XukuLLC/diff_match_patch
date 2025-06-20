@@ -8,12 +8,12 @@ see that repository's [wiki pages](https://github.com/google/diff-match-patch/wi
 
 References from the Google project:
 
-* diff: [An O(ND) Difference Algorithm and Its Variations (Meyers, 1986)](http://www.xmailserver.org/diff2.pdf)
-* match: [Fast Text Searching with Errors (Wu and Manber, 1991)](http://www.club.cc.cmu.edu/~ajo/docs/agrep.pdf)
+- diff: [An O(ND) Difference Algorithm and Its Variations (Meyers, 1986)](http://www.xmailserver.org/diff2.pdf)
+- match: [Fast Text Searching with Errors (Wu and Manber, 1991)](http://www.club.cc.cmu.edu/~ajo/docs/agrep.pdf)
 
 Prior art on the BEAM:
 
-* diffy: [A Diff, Match and Patch implementation for Erlang](https://github.com/zotonic/diffy)
+- diffy: [A Diff, Match and Patch implementation for Erlang](https://github.com/zotonic/diffy)
 
 ## Installation
 
@@ -27,6 +27,7 @@ def deps do
   ]
 end
 ```
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/cursor>.
@@ -34,7 +35,7 @@ be found at <https://hexdocs.pm/cursor>.
 ## Usage
 
 1. Find a **match** for a pattern inside at text using fuzzy search. The
-`match_threshold` option determines the exactness required:
+   `match_threshold` option determines the exactness required:
 
 ```
 loc = Dmp.Match.main(
@@ -56,8 +57,8 @@ diffs = Dmp.Diff.main(
 ```
 
 3. Create a **patch** from the the original text and the diff we just created.
-The patch can also be created directly from the two texts. These
-two patches are equal:
+   The patch can also be created directly from the two texts. These
+   two patches are equal:
 
 ```
 patches1 = Dmp.Patch.make(

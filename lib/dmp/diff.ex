@@ -236,7 +236,7 @@ defmodule Dmp.Diff do
        ) do
     {op, text} = this_diff
 
-    {cursor, count_delete, count_insert, text_delete, text_insert} =
+    result =
       case op do
         :insert ->
           {diffs, count_delete, count_insert + 1, text_delete, text_insert <> text}
@@ -249,9 +249,10 @@ defmodule Dmp.Diff do
           diffs2 =
             if count_delete > 0 && count_insert > 0 do
               # Delete the offending records and add the merged ones.
-              diffs1 = Cursor.delete_before(diffs, count_delete + count_insert)
+              # Split this into multiple steps to avoid compiler confusion
+              temp_diffs = Cursor.delete_before(diffs, count_delete + count_insert)
               sub_diff = main_impl(text_delete, text_insert, false, deadline)
-              Cursor.insert_before(diffs1, sub_diff)
+              Cursor.insert_before(temp_diffs, sub_diff)
             else
               diffs
             end
@@ -261,6 +262,8 @@ defmodule Dmp.Diff do
         _ ->
           raise RuntimeError, "Invalid operation #{inspect(op)}"
       end
+
+    {cursor, count_delete, count_insert, text_delete, text_insert} = result
 
     line_mode_loop(
       Cursor.move_forward(cursor),
